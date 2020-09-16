@@ -1,4 +1,4 @@
-# How to create Angular application with integrated Open Street Map
+# Integrate Open Street Map with Angular application
 Angular application that implements Open Street Map
 
 ## Requirements
