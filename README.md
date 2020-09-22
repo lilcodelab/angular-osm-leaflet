@@ -1,5 +1,5 @@
 # Integrate OpenStreetMap with Angular application
-Angular application that implements Open Street Map
+Angular application that implements OpenStreetMap using Leaflet renderer.
 
 ## Requirements
 Angular requires a current, active LTS, or maintenance LTS version of Node.js.
@@ -48,16 +48,53 @@ After the installation proces, you must implement Leaflet inside our application
     ...
     imports: [
         ...
-        LeafletModule.forRoot()
+        LeafletModule
     ]
     ...
     ```
 
 ## Add and configure map in application
-After installation of depencency packages, you should add a map inside your component. Inside template of your component (for demo purposes i will use app.commponent) you must add leaflet attribude directive:
+After installation of depencency packages, you should add a map inside your component. Inside template of your component (for demo purposes I will use app.commponent) you must add leaflet attribude directive:
 ``` html
-<div class="map" leaflet>
-...
+<div class="map"
+     leaflet
+     [leafletOptions]="options">
 </div>
 ```
+If you want a fullscreen map, you shoud add some style for map (in this case inside ```app.component.scss```):
+```css
+.map {
+    height: 100%;
+    padding: 0;
+  }
+```
+Inside your ```app.component.ts``` add options for leaflet:
 
+```javascript
+import { Component } from '@angular/core';
+import { latLng, tileLayer } from 'leaflet';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss']
+})
+export class AppComponent {
+  title = 'AngularOSM';
+  options = {
+    layers: [
+      tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap contributors'
+      })
+    ],
+    zoom: 7,
+    center: latLng([ 46.879966, -121.726909 ])
+  };
+}
+```
+Leaflet render includes multiple [options](https://leafletjs.com/reference-1.7.1.html), such as:
+1. **Layers** - you can render multiple layers, from multiple sources. For this sample we are using **OpenStreetMap** tile service, with their attribution.
+2. **Zoom** - most tile services offer tiles up to zoom level 18, depending on their coverage.
+3. **Center** - specify the  geographic center of the map.
+
+When you start you application with ```ng serve``` command and open http://localhost:4200, you should see a map rendered :)
