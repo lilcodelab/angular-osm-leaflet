@@ -22,7 +22,7 @@ Inside your Angular application folder, ``dist`` folder will be created with com
 OpenStreetMap is a freem editable map of the world, created by community contributors. Each contributor created some part of map data, such as roads, trails, hospitals, trees...
 One of the most popular JavaScript libraries for embedding OSM map is [Leaflet](https://leafletjs.com/).
 
-## Install Leaflet
+### Install Leaflet
 To use Leaflet in Angular project, you need to install depencency packages:
 
 1. ```npm i --s leaflet``` - Leaflet package.
@@ -53,7 +53,7 @@ After the installation proces, you must implement Leaflet inside our application
     ...
     ```
 
-## Add and configure map in application
+### Add and configure map in application
 After installation of depencency packages, you should add a map inside your component. Inside template of your component (for demo purposes I will use app.commponent) you must add leaflet attribude directive:
 ``` html
 <div class="map"
@@ -70,9 +70,9 @@ If you want a fullscreen map, you shoud add some style for map (in this case ins
 ```
 Inside your ```app.component.ts``` add options for leaflet:
 
-```javascript
+```typescript
 import { Component } from '@angular/core';
-import { latLng, tileLayer } from 'leaflet';
+import * as Leaflet from 'leaflet';
 
 @Component({
   selector: 'app-root',
@@ -81,16 +81,22 @@ import { latLng, tileLayer } from 'leaflet';
 })
 export class AppComponent {
   title = 'AngularOSM';
-  options = {
-    layers: [
-      tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; OpenStreetMap contributors'
-      })
-    ],
-    zoom: 7,
-    center: latLng([ 46.879966, -121.726909 ])
+
+  options: Leaflet.MapOptions = {
+    layers: getLayers(),
+    zoom: 12,
+    center: new Leaflet.LatLng(43.530147, 16.488932)
   };
 }
+
+export const getLayers = (): Leaflet.Layer[] => {
+  return [
+    new Leaflet.TileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    } as Leaflet.TileLayerOptions),
+  ] as Leaflet.Layer[];
+};
+
 ```
 Leaflet render includes multiple [options](https://leafletjs.com/reference-1.7.1.html), such as:
 1. **Layers** - you can render multiple layers, from multiple sources. For this sample we are using **OpenStreetMap** tile service, with their attribution.
@@ -98,3 +104,70 @@ Leaflet render includes multiple [options](https://leafletjs.com/reference-1.7.1
 3. **Center** - specify the  geographic center of the map.
 
 When you start you application with ```ng serve``` command and open http://localhost:4200, you should see a map rendered :)
+
+### Show markers on the map
+For example, let's add two markers on the map. One marker will represent "Workspace" and second one is "Riva". 
+
+```typescript
+export const getMarkers = (): Leaflet.Marker[] => {
+  return [
+    new Leaflet.Marker(new Leaflet.LatLng(43.5121264, 16.4700729), {
+      icon: new Leaflet.Icon({
+        iconSize: [50, 41],
+        iconAnchor: [13, 41],
+        iconUrl: 'assets/blue-marker.svg',
+      }),
+      title: 'Workspace'
+    } as Leaflet.MarkerOptions),
+    new Leaflet.Marker(new Leaflet.LatLng(43.5074826, 16.4390046), {
+      icon: new Leaflet.Icon({
+        iconSize: [50, 41],
+        iconAnchor: [13, 41],
+        iconUrl: 'assets/red-marker.svg',
+      }),
+      title: 'Riva'
+    } as Leaflet.MarkerOptions),
+  ] as Leaflet.Marker[];
+};
+```
+** Inside ```assets``` folder you must add icons for markers, which will be rendered on the map.
+
+Now, inside our layers we must add created markers. After that, check the application and the map with two markers should be rendered.
+```typescript
+
+export const getLayers = (): Leaflet.Layer[] => {
+  return [
+   ...
+    ...getMarkers()
+  ] as Leaflet.Layer[];
+};
+```
+
+### Show polylines on the map
+We already created markers on the map, now we want to show polyline between those two markers:
+
+```typescript
+export const getRoutes = (): Leaflet.Polyline[] => {
+  return [
+    new Leaflet.Polyline([
+      new Leaflet.LatLng(43.5121264, 16.4700729),
+      new Leaflet.LatLng(43.5074826, 16.4390046),
+    ] as Leaflet.LatLng[])
+  ] as Leaflet.Polyline[];
+}; 
+```
+Of cource, we must include it inside layers:
+```typescript
+export const getLayers = (): Leaflet.Layer[] => {
+  return [
+  ...
+    ...getMarkers(),
+    ...getRoutes()
+  ] as Leaflet.Layer[];
+};
+```
+
+### Show current location
+
+
+### Edit map style
