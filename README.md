@@ -101,9 +101,9 @@ export const getLayers = (): Leaflet.Layer[] => {
 Leaflet render includes multiple [options](https://leafletjs.com/reference-1.7.1.html), such as:
 1. **Layers** - you can render multiple layers, from multiple sources. For this sample we are using **OpenStreetMap** tile service, with their attribution.
 2. **Zoom** - most tile services offer tiles up to zoom level 18, depending on their coverage.
-3. **Center** - specify the  geographic center of the map.
+3. **Center** - specify the geographic center of the map.
 
-When you start you application with ```ng serve``` command and open http://localhost:4200, you should see a map rendered :)
+When you start your application with ```ng serve``` command and open http://localhost:4200, you should see a map rendered :)
 
 ### Show markers on the map
 For example, let's add two markers on the map. One marker will represent "Workspace" and second one is "Riva". 
@@ -168,11 +168,11 @@ export const getLayers = (): Leaflet.Layer[] => {
 };
 ```
 
-### Show polygones on the map
+### Show polygons on the map
 Let's try to add some polygone on our current map. Polygone is a two-dimensional plane shape with three or more straight sides. Defining polygone, is done with defining multiple points.
 
 ```typescript
-export const getPolygones = (): Leaflet.Polygon[] => {
+export const getPolygons = (): Leaflet.Polygon[] => {
   return [
     new Leaflet.Polygon([
       new Leaflet.LatLng(43.5181349, 16.4537963),
@@ -193,7 +193,7 @@ After defining a polygone, we should add it inside our layers:
 export const getLayers = (): Leaflet.Layer[] => {
   return [
   ...
-    ...getPolygones()
+    ...getPolygons()
   ] as Leaflet.Layer[];
 };
 ```
@@ -201,7 +201,7 @@ export const getLayers = (): Leaflet.Layer[] => {
 ### Show current location
 
 ### Edit map style
-If you want to edit style of your map, you can use [MapTiler](https://www.maptiler.com/). After you create your own or choose one of sample designs, you can just change URI of our TileLayer. For example I will use ```pastel``` style for map:
+If you want to edit style of your map, you can use [MapTiler](https://www.maptiler.com/). After you create your own or choose one of sample designs, you can just change URI of our TileLayer. For example, I will use ```pastel``` style for map:
 ```typescript
 export const getLayers = (): Leaflet.Layer[] => {
   return [
@@ -219,7 +219,7 @@ export const getLayers = (): Leaflet.Layer[] => {
   ] as Leaflet.Layer[];
 };
 ```
-In this case, we have two layers of maps. First one is with basic style, second one is pastel styled. The pastel styled map will be rendered above basic one. The idea is that you can have multiple layers. So each layer will represent some data.
+In this case, we have two layers of maps. First one is with basic style, second one is pastel styled. The pastel styled map will be rendered above basic one. The idea is that you can have multiple layers. So, each layer will represent some data.
 
 ** Be careful. MapTiler is only **free** for non-comercial use and limited on 100 thousand/month. Check the [pricing plan](https://www.maptiler.com/cloud/plans/).
 ## References

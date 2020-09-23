@@ -61,11 +61,11 @@ export const getLayers = (): Leaflet.Layer[] => {
     // } as Leaflet.TileLayerOptions),
     ...getMarkers(),
     ...getRoutes(),
-    ...getPolygones()
+    ...getPolygons()
   ] as Leaflet.Layer[];
 };
 
-export const getPolygones = (): Leaflet.Polygon[] => {
+export const getPolygons = (): Leaflet.Polygon[] => {
   return [
     new Leaflet.Polygon([
       new Leaflet.LatLng(43.5181349, 16.4537963),
