@@ -1,5 +1,5 @@
 # Integrate OpenStreetMap using Leaflet with Angular application
-Angular application that implements OpenStreetMap using Leaflet renderer.
+Today many clients for Angular applications requier some kind of maps. In this example, I will describe how to implement OpenStreetMap using Leaflet render.
 
 ## Requirements
 Angular requires a current, active LTS, or maintenance LTS version of Node.js.
