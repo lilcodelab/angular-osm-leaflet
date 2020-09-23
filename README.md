@@ -1,4 +1,4 @@
-# Integrate OpenStreetMap with Angular application
+# Integrate OpenStreetMap using Leaflet with Angular application
 Angular application that implements OpenStreetMap using Leaflet renderer.
 
 ## Requirements
