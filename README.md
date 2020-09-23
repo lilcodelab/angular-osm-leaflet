@@ -152,22 +152,81 @@ export const getRoutes = (): Leaflet.Polyline[] => {
     new Leaflet.Polyline([
       new Leaflet.LatLng(43.5121264, 16.4700729),
       new Leaflet.LatLng(43.5074826, 16.4390046),
-    ] as Leaflet.LatLng[])
+    ] as Leaflet.LatLng[], {
+      color: '#0d9148'
+    } as Leaflet.PolylineOptions)
   ] as Leaflet.Polyline[];
-}; 
+};
 ```
 Of cource, we must include it inside layers:
 ```typescript
 export const getLayers = (): Leaflet.Layer[] => {
   return [
   ...
-    ...getMarkers(),
     ...getRoutes()
+  ] as Leaflet.Layer[];
+};
+```
+
+### Show polygones on the map
+Let's try to add some polygone on our current map. Polygone is a two-dimensional plane shape with three or more straight sides. Defining polygone, is done with defining multiple points.
+
+```typescript
+export const getPolygones = (): Leaflet.Polygon[] => {
+  return [
+    new Leaflet.Polygon([
+      new Leaflet.LatLng(43.5181349, 16.4537963),
+      new Leaflet.LatLng(43.517890, 16.439939),
+      new Leaflet.LatLng(43.515599, 16.446556),
+      new Leaflet.LatLng(43.518025, 16.463492)
+    ] as Leaflet.LatLng[],
+      {
+        fillColor: '#eb530d',
+        color: '#eb780d'
+      } as Leaflet.PolylineOptions)
+  ] as Leaflet.Polygon[];
+};
+```
+
+After defining a polygone, we should add it inside our layers:
+```typescript
+export const getLayers = (): Leaflet.Layer[] => {
+  return [
+  ...
+    ...getPolygones()
   ] as Leaflet.Layer[];
 };
 ```
 
 ### Show current location
 
-
 ### Edit map style
+If you want to edit style of your map, you can use [MapTiler](https://www.maptiler.com/). After you create your own or choose one of sample designs, you can just change URI of our TileLayer. For example I will use ```pastel``` style for map:
+```typescript
+export const getLayers = (): Leaflet.Layer[] => {
+  return [
+    // Basic style
+    new Leaflet.TileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    } as Leaflet.TileLayerOptions),
+    // Pastel style, remove if you want basic style.
+    new Leaflet.TileLayer('https://api.maptiler.com/maps/pastel/{z}/{x}/{y}.png?key={your_key}', {
+      attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">© MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">© OpenStreetMap contributors</a>',
+    } as Leaflet.TileLayerOptions),
+    ...getMarkers(),
+    ...getRoutes(),
+    ...getPolygones()
+  ] as Leaflet.Layer[];
+};
+```
+In this case, we have two layers of maps. First one is with basic style, second one is pastel styled. The pastel styled map will be rendered above basic one. The idea is that you can have multiple layers. So each layer will represent some data.
+
+** Be careful. MapTiler is only **free** for non-comercial use and limited on 100 thousand/month. Check the [pricing plan](https://www.maptiler.com/cloud/plans/).
+## References
+- https://leafletjs.com
+- https://github.com/Asymmetrik/ngx-leaflet
+- https://medium.com/@nnwabuokei/creating-editing-geo-fences-using-openstreetmap-with-the-leaflet-js-library-in-angular-5-project-44f0abbe2643
+- https://www.maptiler.com/
+
+## Github
+https://github.com/bpenovic/angular-osm-leaflet
