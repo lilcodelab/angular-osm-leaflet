@@ -227,6 +227,3 @@ In this case, we have two layers of maps. First one is with basic style, second 
 - https://github.com/Asymmetrik/ngx-leaflet
 - https://medium.com/@nnwabuokei/creating-editing-geo-fences-using-openstreetmap-with-the-leaflet-js-library-in-angular-5-project-44f0abbe2643
 - https://www.maptiler.com/
-
-## Github
-https://github.com/bpenovic/angular-osm-leaflet
