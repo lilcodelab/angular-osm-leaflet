@@ -28,7 +28,7 @@ To use Leaflet in Angular project, you need to install depencency packages:
 1. ```npm i --s leaflet``` - Leaflet package.
 2. ```npm i --s @asymmetrik/ngx-leaflet``` - Leaflet wrapper for Angular. Provides flexible and extensible components for integrating Leaflet into Angular project.
 
-Because we are using TypeScript inside Angular project, you should install types for Leaflet ```npm i @types\leaflet```.
+Because we are using TypeScript inside Angular project, you should install types for Leaflet ```npm i --s @types\leaflet```.
 
 After the installation proces, you must implement Leaflet inside our application:
 1. Add Leaflet style into application, inside ```angular.json``` add ```leaflet.css``` file:
@@ -44,7 +44,7 @@ After the installation proces, you must implement Leaflet inside our application
     ```
 2. Before you are starting to use Leaflet inside application, you must import Leaflet module inside ```app.module.ts``` or inside module you want to use it:
     ```
-    import { LeafletModule } from '@my-project/ngx-leaflet';
+    import { LeafletModule } from '@asymmetrik/ngx-leaflet';
     ...
     imports: [
         ...
